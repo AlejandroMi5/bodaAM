@@ -1,0 +1,1280 @@
+<!doctype html>
+<html lang="es">     
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=5, user-scalable=yes" />
+  <title>Alejandro & Mariela — Invitación</title>
+  <meta name="description" content="Invitación de boda — Alejandro & Mariela" />
+  
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --ink:#1c2a33;
+      --muted:#5b6b78;
+
+      --blue:#2f6f8b;
+      --blue2:#1f5670;
+      --gold:#c9a768;
+
+      --paper:#f8fbff;
+      --paper2:#f7f2ea;
+
+      --glass: rgba(255,255,255,.72);
+      --shadow: 0 18px 60px rgba(10, 20, 30, .16);
+      --radius: 26px;
+
+      --max: 980px;
+
+      --serif: ui-serif, "Georgia", "Times New Roman", serif;
+      --sans: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    }
+
+    *{ box-sizing:border-box; }
+    html,body{ height:100%; }
+    body{
+      margin:0;
+      font-family: var(--sans);
+      color:var(--ink);
+      overflow-x:hidden;
+      position: relative;
+      background:
+        radial-gradient(1200px 800px at 30% 10%, #e8f1f6 0%, transparent 55%),
+        radial-gradient(900px 700px at 90% 90%, #f3ece2 0%, transparent 55%),
+        linear-gradient(180deg, var(--paper) 0%, var(--paper2) 100%);
+    }
+
+ 
+    body:after{
+      content:"";
+      position:fixed;
+      inset:0;
+      z-index:-7;
+      pointer-events:none;
+      background-image: 
+        radial-gradient(circle 380px at 15% 20%, rgba(47,111,139,.12), transparent 70%),
+        radial-gradient(circle 320px at 85% 15%, rgba(201,167,104,.15), transparent 65%),
+        radial-gradient(circle 280px at 10% 75%, rgba(31,86,112,.10), transparent 60%),
+        radial-gradient(circle 350px at 90% 80%, rgba(201,167,104,.12), transparent 68%),
+        radial-gradient(circle 240px at 50% 45%, rgba(47,111,139,.08), transparent 55%),
+        radial-gradient(circle 200px at 70% 30%, rgba(201,167,104,.09), transparent 62%);
+      filter: blur(40px);
+      opacity: .85;
+    }
+
+
+    
+    body.locked{
+      overflow: hidden;
+      height: 100vh;
+      position: fixed;
+      width: 100%;
+    }
+
+
+    body:before{
+      content:"";
+      position:fixed; inset:0;
+      opacity:.12;
+      background-image: radial-gradient(rgba(0,0,0,.07) 1px, transparent 1px);
+      background-size: 24px 24px;
+      filter: blur(.2px);
+      z-index:-6;
+      pointer-events:none;
+    }
+
+    #starfield{
+      position: fixed;
+      inset: 0;
+      z-index: -5;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .star{
+      position: absolute;
+      width: var(--s);
+      height: var(--s);
+      left: var(--x);
+      top: var(--y);
+      opacity: 0;
+      transform: translateZ(0) scale(.9);
+      background: radial-gradient(circle, rgba(201,167,104,.95) 0 40%, rgba(201,167,104,0) 72%);
+      filter: drop-shadow(0 0 6px rgba(201,167,104,.28));
+      border-radius: 999px;
+      animation: tw 2.9s ease-in-out infinite;
+      animation-delay: var(--d);
+    }
+    .star::before{
+      content:"";
+      position:absolute;
+      inset:-70%;
+      background:
+        linear-gradient(90deg, transparent 46%, rgba(201,167,104,.50) 50%, transparent 54%),
+        linear-gradient(0deg, transparent 46%, rgba(201,167,104,.50) 50%, transparent 54%);
+      opacity:.52;
+      transform: rotate(18deg);
+    }
+    @keyframes tw{
+      0%, 100% { opacity: 0; transform: scale(.82); }
+      38%      { opacity: .92; transform: scale(1); }
+      62%      { opacity: .22; transform: scale(.94); }
+    }
+
+
+    .confetti-star{
+      position: fixed;
+      width: 12px;
+      height: 12px;
+      pointer-events: none;
+      z-index: 9999;
+      opacity: 0;
+    }
+    .confetti-star::before{
+      content:"★";
+      position:absolute;
+      inset:0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: #FFD700;
+      text-shadow: 
+        0 0 8px rgba(255,215,0,.9),
+        0 0 12px rgba(201,167,104,.7),
+        0 0 16px rgba(255,215,0,.5);
+      filter: brightness(1.4);
+    }
+    @keyframes confettiFall{
+      0%{
+        opacity: 1;
+        transform: translateY(-20px) translateX(0) rotate(0deg) scale(1);
+      }
+      10%{
+        opacity: 1;
+        transform: translateY(10vh) translateX(var(--drift)) rotate(180deg) scale(1);
+      }
+      100%{
+        opacity: 0;
+        transform: translateY(110vh) translateX(calc(var(--drift) * 2)) rotate(720deg) scale(.5);
+      }
+    }
+
+    .smokeWaves{
+      position: fixed;
+      inset: 0;
+      z-index: -4;
+      pointer-events: none;
+      opacity: .45;
+      background:
+        radial-gradient(ellipse 800px 600px at 15% 20%, rgba(47,111,139,.18), transparent 70%),
+        radial-gradient(ellipse 700px 500px at 85% 80%, rgba(201,167,104,.22), transparent 70%),
+        radial-gradient(ellipse 600px 400px at 50% 50%, rgba(31,86,112,.12), transparent 65%);
+      filter: blur(60px);
+      animation: floatSmoke 20s ease-in-out infinite;
+    }
+    @keyframes floatSmoke{
+      0%, 100%{ transform: translate(0, 0) scale(1); }
+      33%{ transform: translate(20px, -15px) scale(1.05); }
+      66%{ transform: translate(-15px, 20px) scale(.98); }
+    }
+
+
+    .particles{
+      position: fixed;
+      inset: 0;
+      z-index: -3;
+      pointer-events: none;
+      overflow: hidden;
+    }
+    .particle{
+      position: absolute;
+      width: var(--ps);
+      height: var(--ps);
+      left: var(--px);
+      top: var(--py);
+      border-radius: 50%;
+      background: radial-gradient(circle, var(--pc) 0%, transparent 70%);
+      opacity: var(--po);
+      animation: floatParticle var(--pd) ease-in-out infinite;
+      animation-delay: var(--pdelay);
+    }
+    @keyframes floatParticle{
+      0%, 100%{ transform: translate(0, 0); }
+      50%{ transform: translate(var(--pmx), var(--pmy)); }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .star{ animation: none; opacity: .10; }
+      .smokeWaves{ animation: none; }
+      .particle{ animation: none; }
+    }
+
+    
+    .container{
+      width:min(var(--max), 92%);
+      margin: 0 auto;
+      padding: 12px 16px 40px;
+    }
+
+    
+    .main{
+      opacity: 0;
+      transform: translateY(10px);
+      pointer-events: none;
+      transition: opacity .6s ease, transform .6s ease;
+    }
+    body.started .main{
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+
+    .cover{
+      min-height: 100svh;
+      display:grid;
+      place-items:center;
+      padding: 16px 16px 16px;
+    }
+    .coverInner{
+      width:min(var(--max), 92%);
+      text-align:center;
+    }
+
+    .subtitle{
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      font-weight: 900;
+      color: var(--gold);
+      font-size: .95rem;
+    }
+    .names{
+      font-family: 'Great Vibes', cursive;
+      font-weight: 400;
+      font-size: clamp(2.8rem, 7vw, 5rem);
+      color: var(--blue2);
+      margin: 8px 0 8px;
+      line-height: 1.15;
+      text-shadow: 0 1px 0 rgba(255,255,255,.45);
+    }
+    .orn{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      margin: 8px auto 8px;
+      opacity:.95;
+    }
+    .orn img{
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+    .quote{
+      max-width: 62ch;
+      margin: 0 auto;
+      color: #3f5563;
+      line-height: 1.65;
+      font-size: clamp(1.02rem, 2.2vw, 1.15rem);
+      font-weight: 650;
+    }
+
+    
+    .startWrap{
+      display:grid;
+      place-items:center;
+      margin-top: 12px;
+      perspective: 1200px;
+    }
+    .envelope{
+      width: min(580px, 92vw);
+      aspect-ratio: 1.618 / 1;
+      cursor:pointer;
+      user-select:none;
+      position:relative;
+      transition: transform .3s ease;
+      transform-style: preserve-3d;
+    }
+    .envelope:hover{
+      transform: translateY(-6px) rotateX(1deg);
+    }
+    .envelope:hover .envBody{
+      box-shadow: 
+        0 30px 80px rgba(10,20,30,.32),
+        0 15px 40px rgba(10,20,30,.18),
+        inset 0 2px 0 rgba(255,255,255,.2),
+        inset 0 -2px 3px rgba(0,0,0,.15),
+        inset 3px 0 2px rgba(0,0,0,.08),
+        inset -3px 0 2px rgba(0,0,0,.08);
+    }
+
+
+    .envBody{
+      position:absolute;
+      inset:0;
+      background: 
+        linear-gradient(165deg, #95aab8 0%, #7d96a6 48%, #6d8a9c 52%, #8199a8 100%);
+      border: none;
+      box-shadow: 
+        0 25px 70px rgba(10,20,30,.28),
+        0 10px 30px rgba(10,20,30,.15),
+        inset 0 2px 0 rgba(255,255,255,.2),
+        inset 0 -2px 3px rgba(0,0,0,.15);
+      overflow: visible;
+      border-radius: 8px;
+    }
+
+
+    .envBody:before{
+      content:"";
+      position:absolute;
+      inset:0;
+      opacity:1;
+      background-image: 
+        repeating-linear-gradient(0deg, transparent 0px, rgba(0,0,0,.15) 1px, transparent 1px, rgba(0,0,0,.08) 2px, transparent 4px),
+        repeating-linear-gradient(90deg, transparent 0px, rgba(0,0,0,.12) 1px, transparent 1px, rgba(0,0,0,.06) 2px, transparent 4px),
+        repeating-linear-gradient(45deg, transparent 0px, rgba(255,255,255,.12) 1px, transparent 2px, transparent 6px),
+        repeating-linear-gradient(-45deg, transparent 0px, rgba(0,0,0,.08) 1px, transparent 3px);
+      border-radius: 8px;
+    }
+
+    .envBody:after{
+      content:"";
+      position:absolute;
+      left:0;
+      top:0;
+      bottom:0;
+      width:8px;
+      background: linear-gradient(to right, 
+        rgba(0,0,0,.25) 0%, 
+        rgba(0,0,0,.15) 40%,
+        transparent 100%);
+      border-radius: 8px 0 0 8px;
+    }
+
+
+    .envelope::before{
+      content:"";
+      position:absolute;
+      right:0;
+      top:0;
+      bottom:0;
+      width:8px;
+      background: linear-gradient(to left, 
+        rgba(0,0,0,.25) 0%, 
+        rgba(0,0,0,.15) 40%,
+        transparent 100%);
+      border-radius: 0 8px 8px 0;
+      z-index:1;
+    }
+
+    .envTriLeft, .envTriRight{
+      position:absolute;
+      top:0;
+      width:50%;
+      height:50%;
+      background: linear-gradient(135deg, #a3b8c5 0%, #8ba0ae 100%);
+      clip-path: polygon(0 0, 100% 100%, 0 100%);
+      box-shadow: 
+        inset 2px 3px 6px rgba(0,0,0,.18),
+        inset -1px -1px 2px rgba(255,255,255,.1);
+    }
+    .envTriLeft{ 
+      left:0;
+      background: linear-gradient(135deg, #a8bcc8 0%, #8fa4b2 100%);
+    }
+    .envTriLeft::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background-image: 
+        repeating-linear-gradient(45deg, transparent 0px, rgba(0,0,0,.15) 1px, transparent 2px, rgba(0,0,0,.08) 3px, transparent 5px),
+        repeating-linear-gradient(135deg, transparent 0px, rgba(255,255,255,.1) 1px, transparent 4px);
+      opacity:1;
+      clip-path: polygon(0 0, 100% 100%, 0 100%);
+    }
+    .envTriRight{ 
+      right:0; 
+      clip-path: polygon(100% 0, 100% 100%, 0 100%);
+      background: linear-gradient(225deg, #9db3c0 0%, #85a0ae 100%);
+      box-shadow: 
+        inset -2px 3px 6px rgba(0,0,0,.2),
+        inset 1px -1px 2px rgba(255,255,255,.08);
+    }
+    .envTriRight::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background-image: 
+        repeating-linear-gradient(-45deg, transparent 0px, rgba(0,0,0,.15) 1px, transparent 2px, rgba(0,0,0,.08) 3px, transparent 5px),
+        repeating-linear-gradient(-135deg, transparent 0px, rgba(255,255,255,.1) 1px, transparent 4px);
+      opacity:1;
+      clip-path: polygon(100% 0, 100% 100%, 0 100%);
+    }
+
+
+    .flap{
+      position:absolute;
+      left:0; right:0; top:0;
+      height: 50%;
+      background: 
+        linear-gradient(to bottom, rgba(255,255,255,.15) 0%, transparent 8%),
+        linear-gradient(172deg, #a8bcc9 0%, #93a9b7 35%, #7d94a3 65%, #8ba0ae 100%);
+      border-left: none;
+      border-right: none;
+      border-top: none;
+      clip-path: polygon(0 0, 50% 100%, 100% 0);
+      transform-origin: 50% 0%;
+      transform: rotateX(0deg);
+      transition: transform .9s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 3;
+      box-shadow: 
+        0 12px 35px rgba(10,20,30,.25),
+        0 5px 15px rgba(10,20,30,.15),
+        inset 0 -3px 8px rgba(0,0,0,.2),
+        inset 2px 1px 3px rgba(255,255,255,.15),
+        inset -2px 1px 3px rgba(255,255,255,.15);
+      filter: brightness(1.05);
+    }
+
+
+    .flap:before{
+      content:"";
+      position:absolute;
+      left:50%;
+      top:0;
+      bottom:0;
+      width:3px;
+      background: linear-gradient(to bottom, 
+        rgba(0,0,0,.15) 0%, 
+        rgba(0,0,0,.25) 50%, 
+        rgba(0,0,0,.15) 100%);
+      transform: translateX(-50%);
+      box-shadow: 
+        1px 0 2px rgba(255,255,255,.2),
+        -1px 0 2px rgba(255,255,255,.2);
+    }
+
+
+    .flap:after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background: 
+        repeating-linear-gradient(90deg, transparent 0px, rgba(0,0,0,.12) 1px, transparent 1px, rgba(0,0,0,.06) 2px, transparent 4px),
+        repeating-linear-gradient(135deg, transparent 0px, rgba(255,255,255,.15) 1px, transparent 2px, transparent 6px),
+        repeating-linear-gradient(0deg, transparent 0px, rgba(0,0,0,.1) 1px, transparent 1px, rgba(0,0,0,.05) 2px, transparent 4px);
+      opacity:1;
+      clip-path: polygon(0 0, 50% 100%, 100% 0);
+    }
+
+
+    .seal{
+      position:absolute;
+      left:50%;
+      top: 42%;
+      transform: translate(-50%, -50%);
+      width: 68px;
+      height: 68px;
+      border-radius: 50%;
+      background: 
+        radial-gradient(circle at 35% 30%, rgba(255,255,255,.5), transparent 30%),
+        radial-gradient(circle at 65% 70%, rgba(139,69,19,.5), transparent 40%),
+        radial-gradient(ellipse 110% 100% at 50% 45%, #e8c574 0%, #d4a968 25%, #c9a05d 45%, #b8935a 65%, #a68450 85%, #957545 100%);
+      box-shadow: 
+        0 8px 25px rgba(201,167,104,.6),
+        0 4px 12px rgba(139,69,19,.4),
+        0 2px 5px rgba(0,0,0,.3),
+        inset 0 4px 8px rgba(255,245,220,.4),
+        inset 0 -4px 8px rgba(100,50,20,.4),
+        inset 3px 3px 6px rgba(255,235,200,.35),
+        inset -3px -3px 6px rgba(100,50,20,.35);
+      z-index: 4;
+      transition: transform .5s ease;
+      border: none;
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,.2));
+    }
+
+    .seal:before{
+      content:"";
+      position:absolute;
+      inset:12%;
+      border-radius: 50%;
+      background: 
+        radial-gradient(circle at 40% 35%, rgba(255,255,255,.3), transparent 50%),
+        radial-gradient(circle at 60% 65%, rgba(100,50,20,.3), transparent 50%);
+      border: 2px solid rgba(200,160,100,.5);
+      box-shadow: 
+        inset 0 2px 4px rgba(0,0,0,.25),
+        inset 0 -1px 3px rgba(255,235,200,.3),
+        0 0 0 1px rgba(255,235,200,.2);
+    }
+
+    .seal:after{
+      content:"A & M";
+      position:absolute;
+      inset:0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Great Vibes', cursive;
+      font-size: 16px;
+      color: rgba(100,50,20,.6);
+      text-shadow: 
+        0 1px 2px rgba(255,235,200,.5),
+        0 -1px 1px rgba(100,50,20,.4);
+      font-weight: 400;
+      letter-spacing: 1px;
+      pointer-events: none;
+    }
+
+    .seal::before{
+      background-image: 
+        radial-gradient(circle at 20% 30%, rgba(255,255,255,.15) 0%, transparent 8%),
+        radial-gradient(circle at 75% 25%, rgba(0,0,0,.1) 0%, transparent 6%),
+        radial-gradient(circle at 80% 70%, rgba(255,255,255,.12) 0%, transparent 7%),
+        radial-gradient(circle at 30% 75%, rgba(0,0,0,.08) 0%, transparent 5%),
+        radial-gradient(circle at 40% 35%, rgba(255,255,255,.3), transparent 50%),
+        radial-gradient(circle at 60% 65%, rgba(100,50,20,.3), transparent 50%);
+    }
+
+    .envelope.is-open .seal{
+      transform: translate(-50%, -50%) scale(1.1) rotate(12deg);
+    }
+
+    .envelope.is-closing .flap{
+      transform: rotateX(0deg);
+    }
+    .envelope.is-closing .seal{
+      transform: translate(-50%, -50%) scale(1) rotate(0deg);
+    }
+
+    .letter{
+      position:absolute;
+      left: 5%;
+      right: 5%;
+      bottom: 8%;
+      height: 70%;
+      background: transparent;
+      transform: translateY(85%);
+      transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+      display:grid;
+      place-items:center;
+      padding: 20px;
+      text-align:center;
+      z-index: 2;
+    }
+
+    .envelope.is-open .flap{ 
+      transform: rotateX(180deg); 
+    }
+    .envelope.is-open .letter{ 
+      transform: translateY(0);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .envTop{
+      position:absolute;
+      top: 54%;
+      left:50%;
+      transform: translateX(-50%);
+      text-align:center;
+      z-index:2;
+      width: 80%;
+    }
+    .envTop .ask{
+      font-family: var(--serif);
+      font-weight: 950;
+      font-size: clamp(1.15rem, 3vw, 1.45rem);
+      margin: 0 0 6px;
+      color: #1a3a4a;
+      text-shadow: 0 1px 1px rgba(255,255,255,.3);
+    }
+    .envTop .hint{
+      margin:0;
+      color: #2d4a58;
+      font-weight: 650;
+      font-size: clamp(.85rem, 2vw, .95rem);
+    }
+
+    .startBtn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      border:none;
+      cursor:pointer;
+      text-decoration:none;
+      font-weight: 950;
+      background: linear-gradient(135deg, rgba(31,86,112,1), rgba(201,167,104,1));
+      color: #fff;
+      box-shadow: 0 18px 40px rgba(31,86,112,.20);
+      width: 100%;
+      max-width: 360px;
+      transition: transform .2s ease;
+    }
+    .startBtn:hover{
+      transform: scale(1.02);
+    }
+    .startSmall{
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: .92rem;
+      line-height:1.5;
+    }
+
+    .divider{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      margin: 14px auto;
+      opacity:.92;
+    }
+    .divider img{
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    .card{
+      width: min(var(--max), 92%);
+      margin: 0 auto;
+      padding: 20px 18px;
+      border-radius: var(--radius);
+      background: var(--glass);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,.62);
+      box-shadow: var(--shadow);
+    }
+
+    .h2{
+      font-family: var(--serif);
+      font-weight: 900;
+      font-size: clamp(1.55rem, 3.6vw, 2rem);
+      margin: 0 0 8px;
+      text-align:center;
+      color:#20313a;
+    }
+    .lead{
+      text-align:center;
+      color: var(--muted);
+      margin: 0 auto 12px;
+      max-width: 70ch;
+      line-height:1.6;
+    }
+
+    .placeGrid{
+      display:grid;
+      grid-template-columns: 1fr;
+      gap: 14px;
+      margin-top: 12px;
+    }
+    .placeBox{
+      background: rgba(255,255,255,.78);
+      border: 1px solid rgba(201,167,104,.28);
+      border-radius: 18px;
+      padding: 16px;
+      position:relative;
+      overflow:hidden;
+    }
+    .meta{
+      color: var(--muted);
+      line-height: 1.55;
+      margin: 0;
+      font-size: .98rem;
+    }
+    .placeName{
+      color: var(--blue2);
+      font-weight: 950;
+      font-size: 1.45rem;
+      margin: 4px 0 8px;
+      font-family: var(--serif);
+    }
+    .time{
+      margin-top: 10px;
+      display:inline-flex;
+      gap:10px;
+      align-items:center;
+      padding: 8px 12px;
+      border-radius: 999px;
+      background: rgba(47,111,139,.08);
+      border: 1px solid rgba(47,111,139,.18);
+      color:#24424f;
+      font-weight: 900;
+    }
+
+    .btnRow{
+      display:flex;
+      gap: 10px;
+      flex-wrap:wrap;
+      margin-top: 12px;
+      justify-content:center;
+    }
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      text-decoration:none;
+      font-weight: 950;
+      border: 1px solid rgba(201,167,104,.30);
+      background: rgba(255,255,255,.82);
+      color: var(--blue2);
+      transition: transform .12s ease, box-shadow .12s ease;
+    }
+    .btn:hover{ transform: translateY(-1px); box-shadow: 0 12px 26px rgba(10,20,30,.10); }
+    .btnPrimary{
+      background: linear-gradient(135deg, rgba(31,86,112,1), rgba(201,167,104,1));
+      color: #fff;
+      border: none;
+    }
+    .btnPrimary:hover{ box-shadow: 0 18px 40px rgba(31,86,112,.20); }
+
+    .triple{
+      display:grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px;
+      margin-top: 12px;
+    }
+    .mini{
+      background: rgba(255,255,255,.78);
+      border: 1px solid rgba(201,167,104,.28);
+      border-radius: 18px;
+      padding: 16px;
+    }
+    .mini h3{
+      margin: 0 0 8px;
+      font-family: var(--serif);
+      font-size: 1.15rem;
+    }
+    .mini p{ margin: 0; color: var(--muted); line-height:1.55; }
+    .phone{
+      font-weight: 950;
+      color: var(--ink);
+      letter-spacing: .02em;
+      font-size: 1.05rem;
+      margin-top: 10px;
+    }
+
+    .timeline{
+      margin-top: 12px;
+      display:grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+    .step{
+      background: rgba(255,255,255,.78);
+      border: 1px solid rgba(201,167,104,.28);
+      border-radius: 18px;
+      padding: 14px 12px;
+      text-align:center;
+    }
+    .icon{
+      width: 46px;
+      height: 46px;
+      border-radius: 16px;
+      margin: 0 auto 10px;
+      background: rgba(47,111,139,.10);
+      border: 1px solid rgba(47,111,139,.18);
+      display:grid;
+      place-items:center;
+      font-weight: 950;
+      color: var(--blue2);
+    }
+    .step b{
+      font-family: var(--serif);
+      font-size: 1.15rem;
+      display:block;
+      margin-bottom: 4px;
+    }
+    .step small{ color: var(--muted); }
+
+    .pill{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding: 10px 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.82);
+      border: 1px solid rgba(201,167,104,.28);
+      color: #2b4a58;
+      font-weight: 900;
+    }
+    .copyRow{
+      display:flex;
+      gap: 10px;
+      flex-wrap:wrap;
+      justify-content:center;
+      margin-top: 14px;
+    }
+
+    .countdown{
+      display:flex;
+      justify-content:center;
+      gap: 10px;
+      flex-wrap:wrap;
+      margin-top: 16px;
+    }
+    .chip{
+      background: rgba(255,255,255,.82);
+      border: 1px solid rgba(201,167,104,.28);
+      border-radius: 999px;
+      padding: 10px 14px;
+      min-width: 96px;
+      text-align:center;
+    }
+    .chip b{
+      display:block;
+      font-family: var(--serif);
+      font-size: 1.35rem;
+    }
+    .chip small{ color:var(--muted); }
+
+    .reveal{ opacity:0; transform: translateY(12px); transition: opacity .65s ease, transform .65s ease; }
+    .reveal.is-visible{ opacity:1; transform: translateY(0); }
+
+    @media (max-width: 900px){
+      .triple{ grid-template-columns: 1fr; }
+      .timeline{ grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 520px){
+      .card{ padding: 18px 14px; width: 88%; }
+      .container{ width: 88%; padding: 10px 8px 35px; }
+      .coverInner{ width: 88%; }
+      .timeline{ grid-template-columns: 1fr; }
+      .cover{ padding: 12px 8px; }
+      
+      .envelope{
+        width: 86vw;
+        max-width: 400px;
+      }
+      .seal{
+        width: 48px;
+        height: 48px;
+      }
+      
+      .confetti-star{
+        width: 10px;
+        height: 10px;
+      }
+      .confetti-star::before{
+        font-size: 10px;
+      }
+      
+      .names{
+        font-size: clamp(2.4rem, 9vw, 4rem);
+      }
+      .h2{
+        font-size: clamp(1.4rem, 5vw, 1.8rem);
+      }
+    }
+    
+    @media (max-width: 360px){
+      .container{ padding: 8px 6px 30px; width: 86%; }
+      .cover{ padding: 10px 6px; }
+      .coverInner{ width: 86%; }
+      .envelope{
+        width: 88vw;
+      }
+      .card{ padding: 16px 12px; width: 86%; }
+      .confetti-star{
+        width: 8px;
+        height: 8px;
+      }
+      .confetti-star::before{
+        font-size: 8px;
+      }
+    }
+    
+    @media (max-height: 600px) and (orientation: landscape){
+      .cover{
+        min-height: auto;
+        padding: 16px 12px;
+      }
+      .envelope{
+        max-width: 350px;
+      }
+    }
+  </style>
+</head>
+
+<body class="locked">
+  <div id="starfield" aria-hidden="true"></div>
+  <div class="smokeWaves" aria-hidden="true"></div>
+  <div class="particles" aria-hidden="true"></div>
+
+  <header class="cover" id="top">
+    <div class="coverInner">
+      <div class="subtitle">Nuestra Boda</div>
+      <div class="orn" aria-hidden="true">
+        <img src="separadornombressup.png" alt="" style="max-width: min(400px, 80vw); height: auto; display: block; margin: 0 auto;">
+      </div>
+      <div class="names">Alejandro &amp; Mariela</div>
+      <div class="orn" aria-hidden="true">
+        <img src="separadornombresinf.png" alt="" style="max-width: min(400px, 80vw); height: auto; display: block; margin: 0 auto;">
+      </div>
+      <p class="quote">
+        Tenemos el gusto de invitarte a <b>este día tan importante</b> de nuestras vidas.
+      </p>
+
+      <div class="startWrap">
+        <div class="envelope" id="startEnvelope" role="button" tabindex="0" aria-label="Pulsa para abrir el sobre y comenzar">
+          <div class="envBody">
+            <div class="envTriLeft"></div>
+            <div class="envTriRight"></div>
+          </div>
+          
+          <div class="envTop">
+            <p class="ask">Abre la invitación</p>
+            <p class="hint">Pulsa en el sobre para comenzar</p>
+          </div>
+
+          <div class="flap"></div>
+          <div class="seal"></div>
+          
+          <div class="letter">
+
+          </div>
+        </div>
+      </div>
+
+      <p class="quote" style="margin-top:16px; opacity:.95;">
+        Domingo <b>25 de enero de 2026</b> — <b>4:30 PM</b>
+      </p>
+    </div>
+  </header>
+
+  <main class="main" id="content">
+    <div class="container">
+      <div class="divider" aria-hidden="true"><img src="separador1.png" alt="" style="max-width: min(500px, 85vw); height: auto; display: block; margin: 0 auto;"></div>
+
+      <section class="card reveal" id="inicio">
+        <h2 class="h2">Lugar &amp; Hora</h2>
+        <p class="lead">
+          La Ceremonia y celebración se realizarán en el mismo lugar.
+        </p>
+
+        <div class="placeGrid">
+          <article class="placeBox">
+            <p class="meta" style="margin:0; font-weight:950; letter-spacing:.12em; text-transform:uppercase; color: var(--gold);">
+              Acompañanos en: 
+            </p>
+            <p class="placeName">Casa la Novena</p>
+            <p class="meta">
+              Dirección: <b>Casa la Novena</b><br> 9a. Calle Pte. 4919, Colonia Escalón, San Salvador.
+              
+            </p>
+
+            <div class="time">4:30 PM</div>
+
+            <div class="btnRow">
+              <a class="btn" target="_blank" rel="noopener" href="https://maps.app.goo.gl/S9kxyZ46bKmTg9WY7"> Ver en Maps</a>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <div class="divider" aria-hidden="true"><img src="separador1.png" alt="" style="max-width: min(500px, 85vw); height: auto; display: block; margin: 0 auto;"></div>
+
+      <section class="card reveal">
+        <h2 class="h2">Información</h2>
+        <p class="lead">Algunos detalles útiles para ese día.</p>
+
+        <div class="triple">
+          <div class="mini">
+            <h3>Dress Code</h3>
+            <p><b>LIBRE</b></p>
+            <p style="margin-top:8px;">
+              Sientete cómodo de usar el Outfit que desees, nos complace tu compañia.
+            </p>
+          </div>
+
+          <div class="mini">
+            <h3>Contacto</h3>
+            <p>Cualquier duda, no dudes en contactarnos:</p>
+            <div class="phone">7165-8963</div>
+            <div class="btnRow" style="margin-top:12px; justify-content:flex-start;">
+              <a class="btn" target="_blank" rel="noopener" href="https://wa.me/50371658963">💬 WhatsApp</a>
+            </div>
+          </div>
+
+          <div class="mini">
+            <h3>Nota</h3>
+            <p>
+              Te indicaremos previamente cuántas personas tienes permitidas.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <div class="divider" aria-hidden="true"><img src="separador1.png" alt="" style="max-width: min(500px, 85vw); height: auto; display: block; margin: 0 auto;"></div>
+
+      <section class="card reveal">
+        <h2 class="h2">Confirmar asistencia</h2>
+        <p class="lead">Por favor confirma tu asistencia en el formulario.</p>
+
+        <div class="btnRow">
+          <a class="btn btnPrimary" target="_blank" rel="noopener" href="https://forms.gle/zS8aZyVDiwKzSyTz7">
+            Confirmar asistencia
+          </a>
+        </div>
+
+        <p class="lead" style="margin-top:14px; font-size:.95rem;">
+          Por favor, confirma al menos 1 semana antes del evento.
+        </p>
+      </section>
+
+      <div class="divider" aria-hidden="true"><img src="separador1.png" alt="" style="max-width: min(500px, 85vw); height: auto; display: block; margin: 0 auto;"></div>
+
+      
+      <section class="card reveal">
+        <h2 class="h2">Itinerario</h2>
+        <p class="lead">Para disfutar en grande este momento.</p>
+
+        <div class="timeline">
+          <div class="step">
+            <div class="icon">⛪</div>
+            <b>4:30 PM</b>
+            <small>Ceremonia</small>
+          </div>
+          <div class="step">
+            <div class="icon">🥂</div>
+            <b>5:30 PM</b>
+            <small>Aperitivos (Aprovecha a tomar todas las fotos que puedas)</small>
+          </div>
+          <div class="step">
+            <div class="icon">🍽️</div>
+            <b>6:00 PM</b>
+            <small>Cena</small>
+          </div>
+          <div class="step">
+            <div class="icon">🎉</div>
+            <b>7:00 PM</b>
+            <small>Disfruta de la estancia</small>
+          </div>
+        </div>
+      </section>
+
+      <div class="divider" aria-hidden="true"><img src="separador1.png" alt="" style="max-width: min(500px, 85vw); height: auto; display: block; margin: 0 auto;"></div>
+
+      <section class="card reveal">
+        <h2 class="h2">Regalo</h2>
+        <p class="lead">
+          Nuestro mejor regalo es tu presencia en este día tan especial.
+          Sin embargo, si deseas hacernos un obsequio, agradeceremos con cariño tus muestras de afecto a través de <b>regalo de sobre</b>.
+        </p>
+
+        <div class="copyRow">
+          <span class="pill">💛 Regalo de sobre</span>
+        </div>
+      </section>
+
+      <div class="divider" aria-hidden="true"><img src="separador1.png" alt="" style="max-width: min(500px, 85vw); height: auto; display: block; margin: 0 auto;"></div>
+
+      <section class="card reveal">
+        <h2 class="h2">Álbum</h2>
+        <p class="lead">
+          Si deseas compartir fotos o videos del evento, podrás hacerlo aquí:
+        </p>
+
+        <div class="btnRow">
+          <a class="btn" target="_blank" rel="noopener" href="https://drive.google.com/drive/folders/TU_LINK_DE_DRIVE">
+            Abrir enlace de Drive →
+          </a>
+        </div>
+      </section>
+
+      <div class="divider" aria-hidden="true"><img src="separador1.png" alt="" style="max-width: min(500px, 85vw); height: auto; display: block; margin: 0 auto;"></div>
+
+      <section class="card reveal" style="text-align:center;">
+        <h2 class="h2">Nos vemos en</h2>
+        <p class="lead">Domingo 25 de enero de 2026 — 4:30 PM</p>
+
+        <div class="countdown" aria-live="polite">
+          <span class="chip"><b id="d">—</b><small>Días</small></span>
+          <span class="chip"><b id="h">—</b><small>Horas</small></span>
+          <span class="chip"><b id="m">—</b><small>Min</small></span>
+        </div>
+
+        <div class="btnRow" style="justify-content:center; margin-top:16px;">
+          <a class="btn" target="_blank" rel="noopener" href="https://maps.app.goo.gl/S9kxyZ46bKmTg9WY7">📍 Ver ubicación</a>
+          <a class="btn btnPrimary" target="_blank" rel="noopener" href="https://wa.me/50371658963">💬 WhatsApp</a>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+
+    const obs = new IntersectionObserver((entries) => {
+      for (const e of entries) if (e.isIntersecting) e.target.classList.add("is-visible");
+    }, { threshold: 0.12 });
+    document.querySelectorAll(".reveal").forEach(el => obs.observe(el));
+
+
+    (function(){
+      const field = document.getElementById("starfield");
+      if (!field) return;
+      const N = 42;
+      for (let i=0; i<N; i++){
+        const s = document.createElement("span");
+        s.className = "star";
+        const size = (Math.random()*2.6 + 1.6).toFixed(2) + "px";
+        const x = (Math.random()*100).toFixed(2) + "vw";
+        const y = (Math.random()*100).toFixed(2) + "vh";
+        const d = (Math.random()*6.2).toFixed(2) + "s";
+        s.style.setProperty("--s", size);
+        s.style.setProperty("--x", x);
+        s.style.setProperty("--y", y);
+        s.style.setProperty("--d", d);
+        s.style.animationDuration = (Math.random()*2.6 + 2.2).toFixed(2) + "s";
+        field.appendChild(s);
+      }
+    })();
+
+
+    (function(){
+      const particles = document.querySelector(".particles");
+      if (!particles) return;
+      const colors = [
+        'rgba(47,111,139,.3)',
+        'rgba(201,167,104,.35)',
+        'rgba(31,86,112,.28)',
+        'rgba(255,255,255,.25)'
+      ];
+      const N = 20;
+      for (let i=0; i<N; i++){
+        const p = document.createElement("span");
+        p.className = "particle";
+        const size = (Math.random()*80 + 40).toFixed(2) + "px";
+        const x = (Math.random()*100).toFixed(2) + "vw";
+        const y = (Math.random()*100).toFixed(2) + "vh";
+        const color = colors[Math.floor(Math.random()*colors.length)];
+        const opacity = (Math.random()*.4 + .15).toFixed(2);
+        const duration = (Math.random()*15 + 10).toFixed(2) + "s";
+        const delay = (Math.random()*5).toFixed(2) + "s";
+        const moveX = (Math.random()*60 - 30).toFixed(2) + "px";
+        const moveY = (Math.random()*60 - 30).toFixed(2) + "px";
+        
+        p.style.setProperty("--ps", size);
+        p.style.setProperty("--px", x);
+        p.style.setProperty("--py", y);
+        p.style.setProperty("--pc", color);
+        p.style.setProperty("--po", opacity);
+        p.style.setProperty("--pd", duration);
+        p.style.setProperty("--pdelay", delay);
+        p.style.setProperty("--pmx", moveX);
+        p.style.setProperty("--pmy", moveY);
+        particles.appendChild(p);
+      }
+    })();
+
+    function launchConfetti(){
+      const width = window.innerWidth;
+      const isMobile = width < 768;
+      const count = isMobile ? 30 : 45; 
+      
+      for (let i=0; i<count; i++){
+        setTimeout(() => {
+          const star = document.createElement("div");
+          star.className = "confetti-star";
+          
+          const startX = Math.random() * width;
+          const startY = -30; 
+          const drift = (Math.random() - 0.5) * (isMobile ? 60 : 100); 
+          const duration = (Math.random() * 2.5 + 2.5).toFixed(2) + "s";
+          const delay = (Math.random() * 0.4).toFixed(2) + "s";
+          
+          star.style.left = startX + "px";
+          star.style.top = startY + "px";
+          star.style.setProperty("--drift", drift + "px");
+          star.style.animation = `confettiFall ${duration} ease-in ${delay} forwards`;
+          
+          document.body.appendChild(star);
+          
+          setTimeout(() => star.remove(), parseFloat(duration) * 1000 + parseFloat(delay) * 1000 + 500);
+        }, i * 50);
+      }
+    }
+
+    let confettiInterval = null;
+    function startConfettiLoop(){
+      launchConfetti();
+      confettiInterval = setInterval(() => {
+        launchConfetti();
+      }, 5000);
+    }
+
+    function stopConfettiLoop(){
+      if(confettiInterval){
+        clearInterval(confettiInterval);
+        confettiInterval = null;
+      }
+    }
+
+    (function(){
+      const env = document.getElementById("startEnvelope");
+
+      function openAndStart(){
+        env.classList.add("is-open");
+
+        setTimeout(() => {
+          startConfettiLoop();
+        }, 500);
+
+        setTimeout(() => {
+          document.body.classList.add("started");
+          
+          document.body.classList.remove("locked");
+
+          
+          setTimeout(() => {
+            const target = document.getElementById("inicio");
+            if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+            
+            // Cerrar el sobre después del scroll
+            setTimeout(() => {
+              env.classList.remove("is-open");
+              env.classList.add("is-closing");
+            }, 800);
+          }, 220);
+        }, 1000);
+      }
+
+      env.addEventListener("click", openAndStart);
+      env.addEventListener("keydown", (e) => {
+        if (e.key === "Enter" || e.key === " ") { e.preventDefault(); openAndStart(); }
+      });
+    })();
+
+    
+    const target = new Date("2026-01-25T16:30:00-06:00");
+    const $d = document.getElementById("d");
+    const $h = document.getElementById("h");
+    const $m = document.getElementById("m");
+    const pad = (n) => String(n).padStart(2,"0");
+
+    function tick(){
+      const now = new Date();
+      const diff = target - now;
+      if (diff <= 0){ $d.textContent="00"; $h.textContent="00"; $m.textContent="00"; return; }
+      const totalMin = Math.floor(diff / 60000);
+      const days = Math.floor(totalMin / (60*24));
+      const hours = Math.floor((totalMin % (60*24)) / 60);
+      const mins = totalMin % 60;
+      $d.textContent = pad(days);
+      $h.textContent = pad(hours);
+      $m.textContent = pad(mins);
+    }
+    tick();
+    setInterval(tick, 10000);
+  </script>
+</body>
+</html>
